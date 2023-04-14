@@ -4,6 +4,8 @@ INSERT INTO user_tb(username, password, fullname, created_at) values('둘리', '
 '애기공룡', now());
 INSERT INTO user_tb(username, password, fullname, created_at) values('콜', '1234',
 '마이', now());
+INSERT INTO user_tb(username, password, fullname, created_at) VALUES('림이','1234',
+'알',now());
 
 
 INSERT INTO account_tb(number, password, balance, user_id, created_at)
