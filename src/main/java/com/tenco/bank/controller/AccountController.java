@@ -28,13 +28,16 @@ public class AccountController {
 	 * @return 목록 페이지 이동
 	 */
 	@GetMapping({"list", "/"})
-	public void list() {
+	public String list() {
 		
 		// todo 예외 테스트 - 삭제 예정
 		//throw new CustomRestfullException("인증되지 않은 사용자 입니다.", HttpStatus.UNAUTHORIZED);
-		throw new CustomPageException("페이지를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
+		//throw new CustomPageException("페이지를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
 		
-		 //return "/account/list";
+		// prefix
+		// subfix
+		
+		 return "/account/list";
 	}
 	// 출금 페이지
 	@GetMapping("/withdraw")
