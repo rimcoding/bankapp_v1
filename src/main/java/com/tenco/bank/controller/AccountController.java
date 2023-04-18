@@ -1,5 +1,8 @@
 package com.tenco.bank.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,11 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tenco.bank.handler.exception.CustomPageException;
 import com.tenco.bank.handler.exception.CustomRestfullException;
+import com.tenco.bank.handler.exception.UnAuthorizedException;
+import com.tenco.bank.repository.model.User;
 
 @Controller
 @RequestMapping("/account")
 public class AccountController {
-	
+	@Autowired
+	private HttpSession session;
 	
 	//todo
 	// 계좌목록 페이지
@@ -37,6 +43,11 @@ public class AccountController {
 		// prefix
 		// subfix
 		
+		// 인증검사 처리
+		User principal = (User)session.getAttribute("principal");
+		if (principal == null) {
+			throw new UnAuthorizedException("인증이 안된 사용자 입니다.",HttpStatus.UNAUTHORIZED);
+		}
 		 return "/account/list";
 	}
 	// 출금 페이지

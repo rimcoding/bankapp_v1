@@ -91,6 +91,7 @@ public class UserController {
 			throw new CustomRestfullException("password를 입력하시오", HttpStatus.BAD_REQUEST);
 		}
 		User principal = userService.signIn(signInFormDto);
+		principal.setPassword(null);
 		session.setAttribute("principal", principal);
 		
 		//todo
@@ -99,6 +100,11 @@ public class UserController {
 		//todo 변경예정
 		return "/account/list";
 		
+	}
+	@GetMapping("/logout")
+	public String logout() {
+		session.invalidate();
+		return "redirect:/user/sign-in";
 	}
 
 	
