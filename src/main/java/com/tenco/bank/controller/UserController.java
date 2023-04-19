@@ -99,7 +99,8 @@ public class UserController {
 		// 서비스 호출 --
 		// 세션에 저장 -- 사용자 정보
 		//todo 변경예정
-		return "/account/list";
+		// 리다이렉트 해줘야 버튼을 클릭했을 때 말고도 로그인 했을 때 바로 계좌정보를 볼수있다.
+		return "redirect:/account/list";
 		
 	}
 	@GetMapping("/logout")
