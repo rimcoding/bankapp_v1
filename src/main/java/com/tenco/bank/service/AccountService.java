@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tenco.bank.dto.DepositFormDto;
 import com.tenco.bank.dto.SaveFormDto;
 import com.tenco.bank.dto.WithdrawFormDto;
 import com.tenco.bank.handler.exception.CustomRestfullException;
@@ -59,12 +60,11 @@ public class AccountService {
 	// 5. 거래 내역 등록 -> insert query
 	// 6. 트랜젝션 처리
 	
-	@SuppressWarnings("unused")
+
 	@Transactional
 	public void updateAccountWithdraw(WithdrawFormDto withdrawFormDto, Integer principalId) {
 		
 		Account accountEntity =  accountRepository.findByNumber(withdrawFormDto.getWAccountNumber());
-		System.out.println(accountEntity.toString());
 		// 1번
 		if (accountEntity == null) {
 			throw new CustomRestfullException("계좌가 없습니다", HttpStatus.BAD_REQUEST);
@@ -100,7 +100,34 @@ public class AccountService {
 		if (resultRowCount != 1) {
 			throw new CustomRestfullException("정상 처리 되지 않았습니다", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		// return 1;
+	}
+	// 입금 처리 기능
+	// 트랜젝션 처리
+	// 1. 계좌존재 여부 확인 (입금 할려고 하는데 계좌가 없을 수도 있어서)
+	// 2. 입금 처리 -> update
+	// 3. 거래 내역 등록 처리 -> insert
+	@Transactional
+	public void updateAccountDeposit(DepositFormDto depositFormDto) {
+		
+		Account accountEntity = accountRepository.findByNumber(depositFormDto.getDAccountNumber());
+		if (accountEntity == null) {
+			throw new CustomRestfullException("해당 계좌가 존재하지 않습니다", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		// 객체 상태값 변경
+		accountEntity.deposit(depositFormDto.getAmount());
+		accountRepository.updateById(accountEntity);
+		
+		History history = new History();
+		history.setAmount(depositFormDto.getAmount());
+		history.setWBalance(null);
+		history.setDBalance(accountEntity.getBalance());
+		history.setWAccountId(null);
+		history.setDAccountId(accountEntity.getId());
+		int resultRowCount = historyRepository.insert(history);
+		if (resultRowCount != 1) {
+			throw new CustomRestfullException("정상 처리가 되지 않았습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 }
