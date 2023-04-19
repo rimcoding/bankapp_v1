@@ -22,4 +22,12 @@
 	select * from account_tb where id = #{id}
 	</select>
 	
+	<select id="findAll" resultType="com.tenco.bank.repository.model.Account">
+	select * from account_tb
+	</select>
+	
+	<select id="findByUserId" resultType="com.tenco.bank.repository.model.Account">
+		select * from account_tb where user_id = #{userId}
+	</select>
+	
 </mapper>

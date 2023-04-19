@@ -16,4 +16,6 @@ public interface AccountRepository {
 	public List<Account> findAll();	// 고민
 	// 한사람의 2개이상의 계좌정보 (관리자가 쓸 기능 만들 예정)
 	public Account findById(int id);
+	
+	public List<Account> findByUserId(Integer userId);
 }
