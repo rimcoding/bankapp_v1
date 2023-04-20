@@ -1,6 +1,5 @@
 package com.tenco.bank.service;
 
-import java.awt.AlphaComposite;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import com.tenco.bank.dto.DepositFormDto;
 import com.tenco.bank.dto.SaveFormDto;
 import com.tenco.bank.dto.TransferFormDto;
 import com.tenco.bank.dto.WithdrawFormDto;
+import com.tenco.bank.dto.response.HistoryDto;
 import com.tenco.bank.handler.exception.CustomRestfullException;
 import com.tenco.bank.repository.interfaces.AccountRepository;
 import com.tenco.bank.repository.interfaces.HistoryRepository;
@@ -46,6 +46,35 @@ public class AccountService {
 			throw new CustomRestfullException("계좌 생성 실패", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	// 단일 계좌 검색 기능
+	@Transactional
+	public Account readAccount(Integer id) {
+		Account accountEntity = accountRepository.findById(id);
+		if (accountEntity == null) {
+			throw new CustomRestfullException("해당 계좌를 찾을 수 없습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return accountEntity;
+	} 
+
+	/**
+	 * 
+	 * @param type = [all, deposity, withdraw]
+	 * @param id (account_id)
+	 * @return 입금,출금,입출금 거래내역 (3가지 타입)
+	 */
+	@Transactional
+	public List<HistoryDto> readHistoryListByAccount(String type,Integer id){
+	
+		List<HistoryDto> historyDtos = historyRepository.findByIdHistoryType(type, id);
+		
+		historyDtos.forEach(e ->{
+			// historyDtos = e 
+			System.out.println(e);
+		});
+		
+		return historyDtos;
+	}
+	
 	// 계좌 목록 보기 기능
 	
 	@Transactional
