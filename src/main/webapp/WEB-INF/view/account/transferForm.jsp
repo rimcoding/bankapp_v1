@@ -6,18 +6,22 @@
 	<h2>출금페이지(인증)</h2>
 	<h5>어서오세요 환영합니다</h5>
 	<div class="bg-light p-md-5 h-75">
-		<form action="#" method="post">
+		<form action="/account/transfer-proc" method="post">
 			<div class="form-group">
-				<label for="amount">이체 금액 : </label> <input type="text" class="form-control" placeholder="이체 금액을 입력하시오" id="amount" name="amount">
+				<label for="amount">이체 금액 : </label> 
+				<input type="text" class="form-control" placeholder="이체 금액을 입력하시오" id="amount" name="amount">
 			</div>
 			<div class="form-group">
-				<label for="wAccountNumber">출금계좌번호 : </label> <input type="text" class="form-control" placeholder="출금계좌번호" id="wAccountNumber" name="wAccountNumber">
+				<label for="wAccountNumber">출금계좌번호 : </label> 
+				<input type="text" class="form-control" placeholder="출금계좌번호" id="wAccountNumber" name="wAccountNumber">
 			</div>
 			<div class="form-group">
-				<label for="dAccountNumber">이체계좌번호 : </label> <input type="text" class="form-control" placeholder="이체계좌번호" id="dAccountNumber" name="dAccountNumber">
+				<label for="dAccountNumber">이체계좌번호 : </label> 
+				<input type="text" class="form-control" placeholder="이체계좌번호" id="dAccountNumber" name="dAccountNumber">
 			</div>
 			<div class="form-group">
-				<label for="wAccountPassword">출금계좌비밀번호 : </label> <input type="password" class="form-control" placeholder="출금계좌비밀번호" id="wAccountPassword" name="wAccountPassword">
+				<label for="wAccountPassword">출금계좌비밀번호 : </label> 
+				<input type="password" class="form-control" placeholder="출금계좌비밀번호" id="wAccountPassword" name="wAccountPassword">
 			</div>
 			<button type="submit" class="btn btn-primary">이체하기</button>
 		</form>
