@@ -43,8 +43,8 @@
 			<th>${history.formatCreatedAt()}</th>
 			<th>${history.sender}</th>
 			<th>${history.receiver}</th>
-			<th>${history.amount}</th>
-			<th>${history.formatBalance()}</th>
+			<th>${history.formatMoney(history.amount)}</th>
+			<th>${history.formatMoney(history.balance)}</th>
 		</tr>
 		</c:forEach>
 		

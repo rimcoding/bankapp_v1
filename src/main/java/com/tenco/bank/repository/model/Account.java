@@ -1,6 +1,7 @@
 package com.tenco.bank.repository.model;
 
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 
 import org.springframework.http.HttpStatus;
 
@@ -50,5 +51,11 @@ public class Account {
 			//작동중인 서버에 클라이언트의 요청이 도달했으나, 
 			//서버가 클라이언트의 접근을 거부할 때 반환하는 HTTP 응답 코드이자 오류 코드
 		}
+	}
+	
+	public String formatBalance() {
+		DecimalFormat df = new DecimalFormat("#,###");
+		String formatNumber = df.format(balance);
+		return formatNumber + "원";
 	}
 }
